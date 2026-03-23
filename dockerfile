@@ -11,7 +11,7 @@ ENV TERM=xterm-256color
 
 # Versión de oc/kubectl que queremos fijar
 # Puedes cambiarla más adelante si quieres alinearla con tus clusters
-ARG OC_VERSION=4.18.0
+ARG OC_VERSION=latest
 
 # Instalación de herramientas útiles:
 # - samba-client / cifs-utils: pruebas SMB/CIFS
