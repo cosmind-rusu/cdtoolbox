@@ -45,3 +45,5 @@ oc login https://api.cluster.example:6443
 oc project test
 oc get pods -A
 oc debug node/<nombre-del-nodo>
+
+oc run cdtoolbox --rm -it --image=docker.io/cosmindrusu/cdtoolbox:latest -- bash
