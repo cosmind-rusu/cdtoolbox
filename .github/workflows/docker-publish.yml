@@ -1,16 +1,10 @@
 name: Build and publish cdtoolbox
 
-# El workflow se ejecuta:
-# - en cada push a main
-# - manualmente desde la pestaña Actions
 on:
   push:
     branches: ["main"]
   workflow_dispatch:
 
-# Permisos mínimos necesarios:
-# - contents:read para leer el repo
-# - packages:write para subir la imagen a GHCR
 permissions:
   contents: read
   packages: write
@@ -20,34 +14,43 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Descarga el contenido del repositorio
+      # 📥 Clonar repo
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Habilita buildx para builds modernas de Docker
+      # ⚙️ Activar buildx (multi-platform si quieres en futuro)
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      # Login en GitHub Container Registry usando el token automático de GitHub Actions
-      - name: Log in to GHCR
+      # 🔐 Login en GHCR (GitHub Container Registry)
+      - name: Login to GHCR
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # Genera metadatos y tags automáticas
-      - name: Extract Docker metadata
+      # 🔐 Login en Docker Hub (IMPORTANTE: usar secrets)
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # 🏷️ Generar tags automáticas
+      - name: Extract metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/cosmind-rusu/cdtoolbox
+          images: |
+            ghcr.io/cosmind-rusu/cdtoolbox
+            docker.io/${{ secrets.DOCKERHUB_USERNAME }}/cdtoolbox
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
             type=raw,value=main,enable={{is_default_branch}}
             type=sha
 
-      # Build y push de la imagen al registry
+      # 🐳 Build + push a ambos registries
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
