@@ -2,19 +2,17 @@
 
 Toolbox personal para troubleshooting y tareas DevOps.
 
-Esta imagen está pensada para tener a mano herramientas comunes de diagnóstico y operación en entornos como:
+Incluye herramientas útiles para trabajar y depurar en entornos como:
 
 - OpenShift
 - Kubernetes
-- Networking
+- networking
 - SMB / CIFS
 - APIs HTTP
 - DNS
-- depuración general de contenedores
+- contenedores y debugging general
 
-## Contenido
-
-La imagen incluye, entre otras, estas herramientas:
+## Herramientas incluidas
 
 - `oc`
 - `kubectl`
@@ -23,7 +21,7 @@ La imagen incluye, entre otras, estas herramientas:
 - `curl`
 - `wget`
 - `telnet`
-- `ncat`
+- `nc`
 - `ssh`
 - `dig`
 - `ping`
@@ -33,9 +31,17 @@ La imagen incluye, entre otras, estas herramientas:
 - `nano`
 - `git`
 
-## Imagen publicada
+## Sobre `oc`
 
-La imagen se publica automáticamente en GitHub Container Registry:
+`oc` es el cliente oficial de OpenShift.
+
+Sirve para autenticarse, cambiar de proyecto, consultar recursos, listar pods, revisar nodos, hacer debug y operar clusters OpenShift/Kubernetes desde línea de comandos.
+
+Ejemplos:
 
 ```bash
-ghcr.io/cosmind-rusu/cdtoolbox:latest
+oc version --client
+oc login https://api.cluster.example:6443
+oc project test
+oc get pods -A
+oc debug node/<nombre-del-nodo>
