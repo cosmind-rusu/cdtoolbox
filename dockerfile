@@ -11,7 +11,7 @@ ENV TERM=xterm-256color
 
 # Versión fija del cliente de OpenShift
 # Puedes cambiarla más adelante para alinearla con tus clusters
-ARG OC_VERSION=4.18.0
+ARG OC_VERSION=latest
 
 # Instalación de herramientas base
 # - samba-client / cifs-utils: pruebas SMB/CIFS
