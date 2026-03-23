@@ -1,0 +1,33 @@
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+*.out
+
+# Archivos temporales
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Entornos y configuración local
+.env
+.env.*
+!.env.example
+
+# Carpetas de editores
+.vscode/
+.idea/
+
+# Archivos de Docker opcionales / locales
+docker-compose.override.yml
+
+# Artefactos varios
+dist/
+build/
+tmp/
+coverage/
